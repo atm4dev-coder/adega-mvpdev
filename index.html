@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adega do Condomínio - Faça seu Pedido</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍷 Adega do Condomínio</h1>
+            <p class="subtitle">Faça seu pedido e receba no conforto da sua casa!</p>
+        </header>
+
+        <main>
+            <!-- Seção de Informações do Cliente -->
+            <section class="customer-info">
+                <h2>Suas Informações</h2>
+                <div class="form-group">
+                    <label for="customerName">Nome:</label>
+                    <input type="text" id="customerName" placeholder="Digite seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerBlock">Bloco:</label>
+                    <input type="text" id="customerBlock" placeholder="Ex: A, B, C" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerApt">Apartamento:</label>
+                    <input type="text" id="customerApt" placeholder="Ex: 101, 202" required>
+                </div>
+            </section>
+
+            <!-- Seção de Pagamento -->
+            <section class="payment-info">
+                <h2>Forma de Pagamento</h2>
+                <div class="form-group">
+                    <label>Método de Pagamento:</label>
+                    <div class="payment-options">
+                        <label class="radio-option">
+                            <input type="radio" name="paymentMethod" value="Cartão" id="paymentCard" required>
+                            <span>💳 Cartão</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="paymentMethod" value="Pix" id="paymentPix" required>
+                            <span>📱 Pix</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="changeSection" style="display: none;">
+                    <label>Precisa de troco?</label>
+                    <div class="change-options">
+                        <label class="radio-option">
+                            <input type="radio" name="needChange" value="Não" id="changeNo" checked>
+                            <span>Não precisa de troco</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="needChange" value="Sim" id="changeYes">
+                            <span>Sim, preciso de troco</span>
+                        </label>
+                    </div>
+                    <div id="changeAmountDiv" style="display: none; margin-top: 15px;">
+                        <label for="changeAmount">Troco para quanto?</label>
+                        <input type="number" id="changeAmount" placeholder="Ex: 50" step="0.01" min="0">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção de Produtos -->
+            <section class="products-section">
+                <h2>Nossos Produtos</h2>
+
+                <!-- Cervejas -->
+                <div class="category">
+                    <h3>🍺 Cervejas</h3>
+                    <div class="products-grid">
+                        <div class="product-card" data-name="Cerveja Lata 350ml" data-price="4.50">
+                            <div class="product-info">
+                                <h4>Cerveja Lata 350ml</h4>
+                                <p class="price">R$ 4,50</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-name="Cerveja Long Neck" data-price="6.00">
+                            <div class="product-info">
+                                <h4>Cerveja Long Neck</h4>
+                                <p class="price">R$ 6,00</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-name="Cerveja Artesanal" data-price="12.00">
+                            <div class="product-info">
+                                <h4>Cerveja Artesanal</h4>
+                                <p class="price">R$ 12,00</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Refrigerantes -->
+                <div class="category">
+                    <h3>🥤 Refrigerantes</h3>
+                    <div class="products-grid">
+                        <div class="product-card" data-name="Refrigerante Lata 350ml" data-price="3.50">
+                            <div class="product-info">
+                                <h4>Refrigerante Lata 350ml</h4>
+                                <p class="price">R$ 3,50</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-name="Refrigerante 2L" data-price="8.00">
+                            <div class="product-info">
+                                <h4>Refrigerante 2L</h4>
+                                <p class="price">R$ 8,00</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-name="Água com Gás 500ml" data-price="3.00">
+                            <div class="product-info">
+                                <h4>Água com Gás 500ml</h4>
+                                <p class="price">R$ 3,00</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Petiscos -->
+                <div class="category">
+                    <h3>🍿 Petiscos</h3>
+                    <div class="products-grid">
+                        <div class="product-card" data-name="Amendoim" data-price="5.00">
+                            <div class="product-info">
+                                <h4>Amendoim</h4>
+                                <p class="price">R$ 5,00</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-name="Batata Chips" data-price="6.50">
+                            <div class="product-info">
+                                <h4>Batata Chips</h4>
+                                <p class="price">R$ 6,50</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-name="Mix de Castanhas" data-price="12.00">
+                            <div class="product-info">
+                                <h4>Mix de Castanhas</h4>
+                                <p class="price">R$ 12,00</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-name="Salgadinho" data-price="4.00">
+                            <div class="product-info">
+                                <h4>Salgadinho</h4>
+                                <p class="price">R$ 4,00</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cigarros -->
+                <div class="category">
+                    <h3>🚬 Cigarros</h3>
+                    <div class="products-grid">
+                        <div class="product-card" data-name="Cigarro Tradicional" data-price="10.00">
+                            <div class="product-info">
+                                <h4>Cigarro Tradicional</h4>
+                                <p class="price">R$ 10,00</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card" data-name="Cigarro Premium" data-price="15.00">
+                            <div class="product-info">
+                                <h4>Cigarro Premium</h4>
+                                <p class="price">R$ 15,00</p>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="btn-minus">-</button>
+                                <input type="number" class="quantity" value="0" min="0" readonly>
+                                <button class="btn-plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resumo do Pedido -->
+            <section class="order-summary">
+                <h2>Resumo do Pedido</h2>
+                <div id="orderItems" class="order-items">
+                    <p class="empty-cart">Seu carrinho está vazio</p>
+                </div>
+                <div class="total">
+                    <strong>Total: <span id="totalPrice">R$ 0,00</span></strong>
+                </div>
+            </section>
+
+            <!-- Botão de Finalizar -->
+            <div class="checkout-section">
+                <button id="btnFinishOrder" class="btn-finish" disabled>
+                    Enviar Pedido via WhatsApp
+                </button>
+            </div>
+        </main>
+
+        <footer>
+            <p>Horário de Funcionamento: Todos os dias, 8h às 22h</p>
+            <p>Entrega rápida no seu apartamento!</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
