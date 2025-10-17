@@ -1,5 +1,5 @@
 // Configuração do WhatsApp (ALTERE ESTE NÚMERO PARA O SEU)
-const WHATSAPP_NUMBER = '5511999999999'; // Formato: Código do país + DDD + Número (sem espaços ou caracteres especiais)
+const WHATSAPP_NUMBER = '5581986097163'; // Formato: Código do país + DDD + Número (sem espaços ou caracteres especiais)
 
 // Estado da aplicação
 let cart = [];
@@ -232,7 +232,7 @@ function sendToWhatsApp() {
     const encodedMessage = encodeURIComponent(message);
     
     // Criar link do WhatsApp
-    const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    const whatsappURL = `https://wa.me/${5581986097163}?text=${encodedMessage}`;
     
     // Abrir WhatsApp
     window.open(whatsappURL, '_blank');
