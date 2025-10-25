@@ -1,271 +1,186 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<html lang="en">
+
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adega do Condomínio - Faça seu Pedido</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Meu profissional dev</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Meu Profissional</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <h1>🍷 Adega do Condomínio</h1>
-            <p class="subtitle">Faça seu pedido e receba no conforto da sua casa!</p>
-        </header>
 
-        <main>
-            <!-- Seção de Informações do Cliente -->
-            <section class="customer-info">
-                <h2>Suas Informações</h2>
-                <div class="form-group">
-                    <label for="customerName">Nome:</label>
-                    <input type="text" id="customerName" placeholder="Digite seu nome" required>
-                </div>
-                <div class="form-group">
-                    <label for="customerBlock">Bloco:</label>
-                    <input type="text" id="customerBlock" placeholder="Ex: A, B, C" required>
-                </div>
-                <div class="form-group">
-                    <label for="customerApt">Apartamento:</label>
-                    <input type="text" id="customerApt" placeholder="Ex: 101, 202" required>
-                </div>
-            </section>
+  <header>
 
-            <!-- Seção de Pagamento -->
-            <section class="payment-info">
-                <h2>Forma de Pagamento</h2>
-                <div class="form-group">
-                    <label>Método de Pagamento:</label>
-                    <div class="payment-options">
-                        <label class="radio-option">
-                            <input type="radio" name="paymentMethod" value="Cartão" id="paymentCard" required>
-                            <span>💳 Cartão</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="paymentMethod" value="Pix" id="paymentPix" required>
-                            <span>📱 Pix</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group" id="changeSection" style="display: none;">
-                    <label>Precisa de troco?</label>
-                    <div class="change-options">
-                        <label class="radio-option">
-                            <input type="radio" name="needChange" value="Não" id="changeNo" checked>
-                            <span>Não precisa de troco</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="needChange" value="Sim" id="changeYes">
-                            <span>Sim, preciso de troco</span>
-                        </label>
-                    </div>
-                    <div id="changeAmountDiv" style="display: none; margin-top: 15px;">
-                        <label for="changeAmount">Troco para quanto?</label>
-                        <input type="number" id="changeAmount" placeholder="Ex: 50" step="0.01" min="0">
-                    </div>
-                </div>
-            </section>
+    <nav class="navbar">
 
-            <!-- Seção de Produtos -->
-            <section class="products-section">
-                <h2>Nossos Produtos</h2>
+      <h1 class="logo">Meu<span>Profissional</span></h1>
 
-                <!-- Cervejas -->
-                <div class="category">
-                    <h3>🍺 Cervejas</h3>
-                    <div class="products-grid">
-                        <div class="product-card" data-name="Cerveja petra Lata 350ml" data-price="4.50">
-                            <div class="product-info">
-                                <h4>pitu lata 350ml</h4>
-                                <p class="price">R$ 8,50</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
+      <button class="menu-toggle" id="menu-toggle">
 
-                        <div class="product-card" data-name="Cerveja stella" data-price="6.00">
-                            <div class="product-info">
-                                <h4>Cerveja litrao</h4>
-                                <p class="price">R$ 6,00</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
+        <i class="fa-solid fa-bars"></i>
 
-                        <div class="product-card" data-name="Cerveja Artesanal
-                            " data-price="12.00">
-                            <div class="product-info">
-                                <h4>Cerveja itaipava</h4>
-                                <p class="price">R$ 12,00</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      </button>
 
-                <!-- Refrigerantes -->
-                <div class="category">
-                    <h3>🥤 Refrigerantes</h3>
-                    <div class="products-grid">
-                        <div class="product-card" data-name="Refrigerante coca Lata 350ml" data-price="3.50">
-                            <div class="product-info">
-                                <h4>Refrigerante antartica Lata 350ml</h4>
-                                <p class="price">R$ 3,50</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
+      <ul class="nav-links" id="nav-links">
 
-                        <div class="product-card" data-name="Refrigerante 2L" data-price="8.00">
-                            <div class="product-info">
-                                <h4>Refrigerante coca 2L</h4>
-                                <p class="price">R$ 20,00</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
+        <li><a href="#home">Início</a></li>
 
-                        <div class="product-card" data-name="Água com Gás 500ml" data-price="3.00">
-                            <div class="product-info">
-                                <h4>Água com Gás 600ml</h4>
-                                <p class="price">R$ 5,00</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <li><a href="#profissionais">Profissionais</a></li>
 
-                <!-- Petiscos -->
-                <div class="category">
-                    <h3>🍿 Petiscos</h3>
-                    <div class="products-grid">
-                        <div class="product-card" data-name="Amendoim" data-price="5.00">
-                            <div class="product-info">
-                                <h4>camarão alho e olho</h4>
-                                <p class="price">R$ 22,00</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
+        <li><a href="#login">Entrar</a></li>
 
-                        <div class="product-card" data-name="Batata frita" data-price="6.50">
-                            <div class="product-info">
-                                <h4>calabresa</h4>
-                                <p class="price">R$ 9,50</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
+        <li><a href="#cadastro">Cadastrar</a></li>
 
-                        <div class="product-card" data-name="calabresa" data-price="12.00">
-                            <div class="product-info">
-                                <h4>Mix de Castanhas</h4>
-                                <p class="price">R$ 12,00</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
+      </ul>
 
-                        <div class="product-card" data-name="empada 🦐" data-price="4.00">
-                            <div class="product-info">
-                                <h4>Salgadinho</h4>
-                                <p class="price">R$ 9,00</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    </nav>
 
-                <!-- Cigarros -->
-                <div class="category">
-                    <h3>🚬 Cigarros</h3>
-                    <div class="products-grid">
-                        <div class="product-card" data-name="Cigarro Tradicional" data-price="10.00">
-                            <div class="product-info">
-                                <h4>Cigarro Lucy strike original</h4>
-                                <p class="price">R$ 15,00</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
+  </header>
 
-                        <div class="product-card" data-name="Cigarro Premium" data-price="15.00">
-                            <div class="product-info">
-                                <h4>Cigarro calton</h4>
-                                <p class="price">R$ 15,00</p>
-                            </div>
-                            <div class="quantity-control">
-                                <button class="btn-minus">-</button>
-                                <input type="number" class="quantity" value="0" min="0" readonly>
-                                <button class="btn-plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+  <!-- Seção Home -->
 
-            <!-- Resumo do Pedido -->
-            <section class="order-summary">
-                <h2>Resumo do Pedido</h2>
-                <div id="orderItems" class="order-items">
-                    <p class="empty-cart">Seu carrinho está vazio</p>
-                </div>
-                <div class="total">
-                    <strong>Total: <span id="totalPrice">R$ 0,00</span></strong>
-                </div>
-            </section>
+  <section id="home" class="hero">
 
-            <!-- Botão de Finalizar -->
-            <div class="checkout-section">
-                <button id="btnFinishOrder" class="btn-finish" disabled>
-                    Enviar Pedido via WhatsApp
-                </button>
-            </div>
-        </main>
+    <h2>Encontre o profissional ideal</h2>
 
-        <footer>
-            <p>Horário de Funcionamento: Todos os dias,24h</p>todos os direitos reservados ATM4DEV©®
-            <p>Entrega rápida no seu apartamento!</p>
-        </footer>
+    <p>Serviços de confiança em sua cidade!</p>
+
+    <div class="search-box">
+
+      <select id="servicoFiltro" onchange="buscarProfissionais()">
+        <option value="">Todos os Serviços</option>
+        <!-- Opções serão preenchidas via JavaScript -->
+      </select>
+      <select id="cidadeFiltro" onchange="buscarProfissionais()">
+        <option value="">Todas as Cidades</option>
+        <!-- Opções serão preenchidas via JavaScript -->
+      </select>
+
+      <button onclick="buscarProfissionais()">Filtrar</button>
+
     </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+  </section>
 
+  <!-- Categorias -->
+
+  <section class="categories">
+
+    <h3>Categorias Populares</h3>
+
+    <div class="card-container">
+
+      <div class="card"><i class="fa-solid fa-paint-roller"></i><p>Pintor</p></div>
+
+      <div class="card"><i class="fa-solid fa-bolt"></i><p>Eletricista</p></div>
+
+      <div class="card"><i class="fa-solid fa-wrench"></i><p>Encanador</p></div>
+
+      <div class="card"><i class="fa-solid fa-hammer"></i><p>Pedreiro</p></div>
+
+      <div class="card"><i class="fa-solid fa-broom"></i><p>Diarista</p></div>
+
+    </div>
+
+  </section>
+
+  <!-- Lista de Profissionais -->
+
+  <section id="profissionais" class="resultados">
+
+    <h3>Profissionais disponíveis</h3>
+
+    <div id="listaProfissionais" class="lista-profissionais"></div>
+
+  </section>
+
+  <!-- Login -->
+
+  <section id="login" class="form-section">
+
+    <h2>Entrar</h2>
+
+    <form class="form-box">
+
+      <input type="email" placeholder="E-mail" required />
+
+      <input type="password" placeholder="Senha" required />
+
+      <button type="submit">Entrar</button>
+
+      <p>Não tem conta? <a href="#cadastro">Cadastre-se</a></p>
+
+    </form>
+
+  </section>
+
+  <!-- Cadastro -->
+
+  <section id="cadastro" class="form-section">
+
+    <h2>Cadastrar</h2>
+
+    <form class="form-box">
+
+      <input type="text" placeholder="Nome completo" required />
+
+      <input type="email" placeholder="E-mail" required />
+
+      <input type="password" placeholder="Senha" required />
+
+      <input type="password" placeholder="Confirmar senha" required />
+
+      <button type="submit">Cadastrar</button>
+
+      <p>Já tem conta? <a href="#login">Entrar</a></p>
+
+    </form>
+
+  </section>
+
+  <footer>
+
+    <p>© 2025 Meu Profissional - Todos os direitos reservados.</p>
+
+    <div class="social">
+
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+
+      <a href="#"><i class="fa-brands fa-facebook"></i></a>
+
+      <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+
+    </div>
+
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>

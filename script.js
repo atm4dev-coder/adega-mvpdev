@@ -1,272 +1,107 @@
-// Configuração do WhatsApp (ALTERE ESTE NÚMERO PARA O SEU)
-const WHATSAPP_NUMBER = '5581986097163'; // Formato: Código do país + DDD + Número (sem espaços ou caracteres especiais)
+// Alternar menu responsivo
 
-// Estado da aplicação
-let cart = [];
+const menuToggle = document.getElementById("menu-toggle");
 
-// Elementos DOM
-const customerNameInput = document.getElementById('customerName');
-const customerBlockInput = document.getElementById('customerBlock');
-const customerAptInput = document.getElementById('customerApt');
-const paymentCardRadio = document.getElementById('paymentCard');
-const paymentPixRadio = document.getElementById('paymentPix');
-const changeNoRadio = document.getElementById('changeNo');
-const changeYesRadio = document.getElementById('changeYes');
-const changeSection = document.getElementById('changeSection');
-const changeAmountDiv = document.getElementById('changeAmountDiv');
-const changeAmountInput = document.getElementById('changeAmount');
-const orderItemsDiv = document.getElementById('orderItems');
-const totalPriceSpan = document.getElementById('totalPrice');
-const btnFinishOrder = document.getElementById('btnFinishOrder');
+const navLinks = document.getElementById("nav-links");
 
-// Inicialização
-document.addEventListener('DOMContentLoaded', function() {
-    initializeProductControls();
-    initializePaymentControls();
-    updateOrderSummary();
-    
-    // Event listeners para inputs do cliente
-    customerNameInput.addEventListener('input', validateForm);
-    customerBlockInput.addEventListener('input', validateForm);
-    customerAptInput.addEventListener('input', validateForm);
-    
-    // Event listeners para pagamento
-    paymentCardRadio.addEventListener('change', validateForm);
-    paymentPixRadio.addEventListener('change', validateForm);
-    
-    // Event listener para botão de finalizar
-    btnFinishOrder.addEventListener('click', sendToWhatsApp);
+menuToggle.addEventListener("click", () => {
+
+  navLinks.classList.toggle("active");
+
 });
 
-// Inicializar controles de pagamento
-function initializePaymentControls() {
-    // Mostrar seção de troco apenas se Pix for selecionado
-    paymentPixRadio.addEventListener('change', function() {
-        if (this.checked) {
-            changeSection.style.display = 'block';
-        }
+// Profissionais fictícios para simular busca
+
+const profissionais = [
+
+  { nome: "Carlos Souza", servico: "Eletricista", cidade: "Recife" },
+
+  { nome: "Maria Silva", servico: "Pintora", cidade: "Olinda" },
+
+  { nome: "João Pereira", servico: "Encanador", cidade: "Jaboatão" },
+
+  { nome: "Ana Costa", servico: "Diarista", cidade: "Paulista" },
+
+  { nome: "Roberto Lima", servico: "Pedreiro", cidade: "Camaragibe" },
+  
+  { nome: "Fernanda Melo", servico: "Eletricista", cidade: "Recife" },
+  
+  { nome: "Pedro Alves", servico: "Pintora", cidade: "Jaboatão" },
+  
+  { nome: "Lúcia Santos", servico: "Diarista", cidade: "Olinda" }
+
+];
+
+// Função para preencher os filtros de serviço e cidade
+
+function preencherFiltros() {
+    const servicoFiltro = document.getElementById("servicoFiltro");
+    const cidadeFiltro = document.getElementById("cidadeFiltro");
+
+    // Coletar serviços e cidades únicos
+    const servicosUnicos = [...new Set(profissionais.map(p => p.servico))].sort();
+    const cidadesUnicas = [...new Set(profissionais.map(p => p.cidade))].sort();
+
+    // Preencher Serviços
+    servicosUnicos.forEach(servico => {
+        const option = document.createElement("option");
+        option.value = servico;
+        option.textContent = servico;
+        servicoFiltro.appendChild(option);
     });
-    
-    paymentCardRadio.addEventListener('change', function() {
-        if (this.checked) {
-            changeSection.style.display = 'none';
-            changeAmountDiv.style.display = 'none';
-            changeNoRadio.checked = true;
-        }
-    });
-    
-    // Mostrar campo de valor do troco
-    changeYesRadio.addEventListener('change', function() {
-        if (this.checked) {
-            changeAmountDiv.style.display = 'block';
-        }
-    });
-    
-    changeNoRadio.addEventListener('change', function() {
-        if (this.checked) {
-            changeAmountDiv.style.display = 'none';
-            changeAmountInput.value = '';
-        }
+
+    // Preencher Cidades
+    cidadesUnicas.forEach(cidade => {
+        const option = document.createElement("option");
+        option.value = cidade;
+        option.textContent = cidade;
+        cidadeFiltro.appendChild(option);
     });
 }
 
-// Inicializar controles de quantidade dos produtos
-function initializeProductControls() {
-    const productCards = document.querySelectorAll('.product-card');
-    
-    productCards.forEach(card => {
-        const btnMinus = card.querySelector('.btn-minus');
-        const btnPlus = card.querySelector('.btn-plus');
-        const quantityInput = card.querySelector('.quantity');
-        const productName = card.dataset.name;
-        const productPrice = parseFloat(card.dataset.price);
-        
-        btnPlus.addEventListener('click', function() {
-            let currentValue = parseInt(quantityInput.value);
-            currentValue++;
-            quantityInput.value = currentValue;
-            updateCart(productName, productPrice, currentValue);
-        });
-        
-        btnMinus.addEventListener('click', function() {
-            let currentValue = parseInt(quantityInput.value);
-            if (currentValue > 0) {
-                currentValue--;
-                quantityInput.value = currentValue;
-                updateCart(productName, productPrice, currentValue);
-            }
-        });
-    });
-}
+// Função para exibir a lista de profissionais
+function exibirProfissionais(listaProfissionais) {
+    const lista = document.getElementById("listaProfissionais");
+    lista.innerHTML = "";
 
-// Atualizar carrinho
-function updateCart(productName, productPrice, quantity) {
-    // Procurar se o produto já existe no carrinho
-    const existingItemIndex = cart.findIndex(item => item.name === productName);
-    
-    if (quantity === 0) {
-        // Remover item se quantidade for zero
-        if (existingItemIndex !== -1) {
-            cart.splice(existingItemIndex, 1);
-        }
+    if (listaProfissionais.length === 0) {
+        lista.innerHTML = "<p>Nenhum profissional encontrado com os filtros selecionados.</p>";
     } else {
-        // Adicionar ou atualizar item
-        if (existingItemIndex !== -1) {
-            cart[existingItemIndex].quantity = quantity;
-            cart[existingItemIndex].subtotal = quantity * productPrice;
-        } else {
-            cart.push({
-                name: productName,
-                price: productPrice,
-                quantity: quantity,
-                subtotal: quantity * productPrice
-            });
-        }
+        listaProfissionais.forEach(p => {
+            const card = document.createElement("div");
+            card.classList.add("prof-card");
+            card.innerHTML = `
+                <h4>${p.nome}</h4>
+                <p><strong>Serviço:</strong> ${p.servico}</p>
+                <p><strong>Cidade:</strong> ${p.cidade}</p>
+                <button class="btn-contratar">Contratar</button>
+            `;
+            lista.appendChild(card);
+        });
     }
-    
-    updateOrderSummary();
-    validateForm();
 }
 
-// Atualizar resumo do pedido
-function updateOrderSummary() {
-    if (cart.length === 0) {
-        orderItemsDiv.innerHTML = '<p class="empty-cart">Seu carrinho está vazio</p>';
-        totalPriceSpan.textContent = 'R$ 0,00';
-        return;
-    }
-    
-    let html = '';
-    let total = 0;
-    
-    cart.forEach(item => {
-        html += `
-            <div class="order-item">
-                <div>
-                    <div class="order-item-name">${item.name}</div>
-                    <div class="order-item-details">${item.quantity}x R$ ${item.price.toFixed(2)}</div>
-                </div>
-                <div class="order-item-price">R$ ${item.subtotal.toFixed(2)}</div>
-            </div>
-        `;
-        total += item.subtotal;
+// Função de busca e filtragem
+
+function buscarProfissionais() {
+    const servicoSelecionado = document.getElementById("servicoFiltro").value;
+    const cidadeSelecionada = document.getElementById("cidadeFiltro").value;
+
+    const resultados = profissionais.filter(p => {
+        const filtraServico = servicoSelecionado === "" || p.servico === servicoSelecionado;
+        const filtraCidade = cidadeSelecionada === "" || p.cidade === cidadeSelecionada;
+        
+        return filtraServico && filtraCidade;
     });
-    
-    orderItemsDiv.innerHTML = html;
-    totalPriceSpan.textContent = `R$ ${total.toFixed(2)}`;
+
+    exibirProfissionais(resultados);
+
+    // Rola para a seção de resultados após a busca
+    document.getElementById("profissionais").scrollIntoView({ behavior: "smooth" });
 }
 
-// Validar formulário
-function validateForm() {
-    const name = customerNameInput.value.trim();
-    const block = customerBlockInput.value.trim();
-    const apt = customerAptInput.value.trim();
-    const hasItems = cart.length > 0;
-    const paymentSelected = paymentCardRadio.checked || paymentPixRadio.checked;
-    
-    if (name && block && apt && hasItems && paymentSelected) {
-        btnFinishOrder.disabled = false;
-    } else {
-        btnFinishOrder.disabled = true;
-    }
-}
-
-// Enviar pedido para WhatsApp
-function sendToWhatsApp() {
-    const name = customerNameInput.value.trim();
-    const block = customerBlockInput.value.trim();
-    const apt = customerAptInput.value.trim();
-    
-    if (!name || !block || !apt || cart.length === 0) {
-        alert('Por favor, preencha todos os campos e adicione produtos ao carrinho.');
-        return;
-    }
-    
-    // Obter método de pagamento
-    let paymentMethod = '';
-    if (paymentCardRadio.checked) {
-        paymentMethod = 'Cartão';
-    } else if (paymentPixRadio.checked) {
-        paymentMethod = 'Pix';
-    }
-    
-    if (!paymentMethod) {
-        alert('Por favor, selecione um método de pagamento.');
-        return;
-    }
-    
-    // Construir mensagem
-    let message = `🍷 *NOVO PEDIDO - ADEGA DO CONDOMÍNIO*\n\n`;
-    message += `👤 *Cliente:* ${name}\n`;
-    message += `🏢 *Bloco:* ${block}\n`;
-    message += `🚪 *Apartamento:* ${apt}\n\n`;
-    message += `💳 *Pagamento:* ${paymentMethod}\n`;
-    
-    // Adicionar informações de troco se Pix e precisa de troco
-    if (paymentPixRadio.checked && changeYesRadio.checked) {
-        const changeAmount = changeAmountInput.value.trim();
-        if (changeAmount) {
-            message += `💵 *Troco para:* R$ ${parseFloat(changeAmount).toFixed(2)}\n`;
-        } else {
-            message += `💵 *Precisa de troco* (valor não especificado)\n`;
-        }
-    } else if (paymentPixRadio.checked) {
-        message += `💵 *Troco:* Não precisa\n`;
-    }
-    
-    message += `\n📋 *ITENS DO PEDIDO:*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━\n`;
-    
-    let total = 0;
-    cart.forEach(item => {
-        message += `\n▪️ ${item.name}\n`;
-        message += `   ${item.quantity}x R$ ${item.price.toFixed(2)} = R$ ${item.subtotal.toFixed(2)}\n`;
-        total += item.subtotal;
-    });
-    
-    message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `💰 *TOTAL: R$ ${total.toFixed(2)}*\n\n`;
-    message += `⏰ Aguardando confirmação e entrega!`;
-    
-    // Codificar mensagem para URL
-    const encodedMessage = encodeURIComponent(message);
-    
-    // Criar link do WhatsApp
-    const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-    
-    // Abrir WhatsApp
-    window.open(whatsappURL, '_blank');
-    
-    // Opcional: Limpar formulário após envio
-    // setTimeout(() => {
-    //     resetForm();
-    // }, 1000);
-}
-
-// Função para resetar o formulário (opcional)
-function resetForm() {
-    customerNameInput.value = '';
-    customerBlockInput.value = '';
-    customerAptInput.value = '';
-    paymentCardRadio.checked = false;
-    paymentPixRadio.checked = false;
-    changeNoRadio.checked = true;
-    changeAmountInput.value = '';
-    changeSection.style.display = 'none';
-    changeAmountDiv.style.display = 'none';
-    
-    const quantityInputs = document.querySelectorAll('.quantity');
-    quantityInputs.forEach(input => {
-        input.value = '0';
-    });
-    
-    cart = [];
-    updateOrderSummary();
-    validateForm();
-}
-
-// Formatar preço
-function formatPrice(value) {
-    return `R$ ${value.toFixed(2).replace('.', ',')}`;
-}
-
+// Inicialização: Preenche os filtros e exibe todos os profissionais ao carregar
+window.onload = () => {
+    preencherFiltros();
+    exibirProfissionais(profissionais); // Exibe todos ao carregar a página
+};
