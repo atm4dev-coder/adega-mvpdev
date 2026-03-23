@@ -8,6 +8,7 @@ import { CartProvider } from "./contexts/CartContext";
 import Home from "./pages/Home";
 import Checkout from "./pages/Checkout";
 import DeliveryValidation from "./pages/DeliveryValidation";
+import AdminPanel from "./pages/AdminPanel";
 
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/delivery" component={DeliveryValidation} />
+      <Route path="/admin" component={AdminPanel} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

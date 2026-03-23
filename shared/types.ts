@@ -18,17 +18,18 @@ export interface CartItem {
 
 export interface Customer {
   name: string;
+  condominium: string;
   block: string;
   apartment: string;
 }
 
 export interface Order {
-  id: string;
+  code: string;
   customer: Customer;
   items: CartItem[];
   paymentMethod: "pix" | "cash" | "card";
   total: number;
-  createdAt: Date;
+  createdAt: string;
 }
 
 export interface Cart {

@@ -1,23 +1,8 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  image: string;
-  available: boolean;
-}
-
-interface CartItem {
-  productId: string;
-  product: Product;
-  quantity: number;
-}
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
+import { Product, CartItem as CartItemType } from "@/../../shared/types";
 
 interface CartContextType {
-  items: CartItem[];
+  items: CartItemType[];
   total: number;
   addItem: (product: Product, quantity: number) => void;
   removeItem: (productId: string) => void;
@@ -27,8 +12,31 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+const CART_STORAGE_KEY = "adega_cart";
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItemType[]>([]);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Carregar carrinho do localStorage ao montar
+  useEffect(() => {
+    try {
+      const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+      if (savedCart) {
+        setItems(JSON.parse(savedCart));
+      }
+    } catch (error) {
+      console.error("Erro ao carregar carrinho do localStorage:", error);
+    }
+    setIsHydrated(true);
+  }, []);
+
+  // Salvar carrinho no localStorage sempre que mudar
+  useEffect(() => {
+    if (isHydrated) {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+    }
+  }, [items, isHydrated]);
 
   const total = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 

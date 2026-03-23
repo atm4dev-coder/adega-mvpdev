@@ -4,6 +4,7 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Send } from "lucide-react";
 import { toast } from "sonner";
+import { Order } from "@/../../shared/types";
 
 export default function Checkout() {
   const { items, total, clearCart } = useCart();
@@ -15,7 +16,7 @@ export default function Checkout() {
     condominium: "",
     block: "",
     apartment: "",
-    paymentMethod: "pix",
+    paymentMethod: "pix" as const,
   });
 
   const handleInputChange = (
@@ -91,15 +92,20 @@ ${itemsList}
       const encodedMessage = encodeURIComponent(message);
 
       // Número do WhatsApp configurado
-      const whatsappNumber = "5581995378064"; // Seu número de WhatsApp
+      const whatsappNumber = "5581995378064";
 
       // Armazenar pedido no localStorage para validação do entregador
-      const order = {
+      const order: Order = {
         code: deliveryCode,
-        customer: formData,
+        customer: {
+          name: formData.name,
+          condominium: formData.condominium,
+          block: formData.block,
+          apartment: formData.apartment,
+        },
         items: items,
+        paymentMethod: formData.paymentMethod,
         total: total,
-        paymentMethod: paymentMethodLabel,
         createdAt: new Date().toISOString(),
       };
       

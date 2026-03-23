@@ -1,31 +1,9 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, CheckCircle, AlertCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
-
-interface Order {
-  code: string;
-  customer: {
-    name: string;
-    condominium: string;
-    block: string;
-    apartment: string;
-    paymentMethod: string;
-  };
-  items: Array<{
-    productId: string;
-    product: {
-      id: string;
-      name: string;
-      price: number;
-    };
-    quantity: number;
-  }>;
-  total: number;
-  paymentMethod: string;
-  createdAt: string;
-}
+import { Order } from "@/../../shared/types";
 
 export default function DeliveryValidation() {
   const [, setLocation] = useLocation();
@@ -167,7 +145,12 @@ export default function DeliveryValidation() {
               {/* Payment Info */}
               <div className="mb-6 pb-6 border-b border-border">
                 <p className="text-sm">
-                  <span className="font-medium">Forma de Pagamento:</span> {foundOrder.paymentMethod}
+                  <span className="font-medium">Forma de Pagamento:</span>{" "}
+                  {foundOrder.paymentMethod === "pix"
+                    ? "PIX"
+                    : foundOrder.paymentMethod === "cash"
+                      ? "Dinheiro"
+                      : "Cartão"}
                 </p>
               </div>
 
