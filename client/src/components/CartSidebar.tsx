@@ -29,7 +29,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
 
       {/* Sidebar */}
       <div
-        className={`fixed right-0 top-0 h-full w-full max-w-sm bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed right-0 top-0 h-full w-full max-w-sm bg-white dark:bg-slate-800 shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         } md:translate-x-0 md:relative md:max-w-sm md:shadow-none md:border-l md:border-border`}
       >
@@ -58,7 +58,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
             items.map((item) => (
               <div
                 key={item.productId}
-                className="flex gap-3 p-3 bg-gray-50 rounded-lg"
+                className="flex gap-3 p-3 bg-gray-50 dark:bg-slate-700 rounded-lg"
               >
                 <img
                   src={item.product.image}

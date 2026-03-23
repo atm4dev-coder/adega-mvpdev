@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ProductCard } from "@/components/ProductCard";
 import { CartSidebar } from "@/components/CartSidebar";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { useCart } from "@/contexts/CartContext";
 import { useLocation } from "wouter";
 import { ShoppingCart, Truck } from "lucide-react";
@@ -18,15 +19,16 @@ export default function Home() {
       : PRODUCTS.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-white border-b border-border shadow-sm">
+      <header className="sticky top-0 z-30 bg-white dark:bg-slate-900 border-b border-border shadow-sm">
         <div className="container flex items-center justify-between py-4">
           <div className="flex items-center gap-2">
             <ShoppingCart className="w-6 h-6 text-emerald-600" />
             <h1 className="text-2xl font-bold text-foreground">🍺 Adega MVP</h1>
           </div>
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <button
               onClick={() => setLocation("/delivery")}
               className="hidden sm:flex items-center gap-2 px-3 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
@@ -36,7 +38,7 @@ export default function Home() {
             </button>
             <button
               onClick={() => setIsCartOpen(!isCartOpen)}
-              className="md:hidden relative p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="md:hidden relative p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             >
               <ShoppingCart className="w-6 h-6" />
               {items.length > 0 && (
@@ -62,7 +64,7 @@ export default function Home() {
                   className={`px-4 py-2 rounded-full font-medium whitespace-nowrap transition-colors ${
                     selectedCategory === category
                       ? "bg-emerald-600 text-white"
-                      : "bg-white border border-border text-foreground hover:border-emerald-600"
+                      : "bg-white dark:bg-slate-800 border border-border text-foreground hover:border-emerald-600"
                   }`}
                 >
                   {category}

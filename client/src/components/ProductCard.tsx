@@ -17,7 +17,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg border border-border overflow-hidden hover:shadow-md transition-shadow duration-200">
+    <div className="bg-white dark:bg-slate-800 rounded-lg border border-border overflow-hidden hover:shadow-md transition-shadow duration-200">
       {/* Product Image */}
       <div className="relative w-full h-48 bg-gray-100 overflow-hidden">
         <img
@@ -50,7 +50,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 
         {/* Quantity and Add to Cart */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center border border-border rounded-md">
+          <div className="flex items-center border border-border rounded-md dark:bg-slate-700">
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
               className="px-2 py-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
